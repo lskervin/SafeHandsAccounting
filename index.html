@@ -746,13 +746,28 @@
             <p>Send a quick message and we’ll help determine the right bookkeeping, cleanup, payroll, 1099, or QuickBooks package for your business.</p>
           </div>
 
-          <form class="cta-box" id="contactForm">
-            <input type="text" id="name" placeholder="Your name" required />
-            <input type="email" id="email" placeholder="Email address" required />
-            <textarea id="message" placeholder="Tell us what you need help with"></textarea>
-            <button class="btn btn-primary" type="submit">Request Consultation</button>
-            <p id="formMessage" style="margin-top: 12px; font-size: .95rem;"></p>
-          </form>
+          <form class="cta-box" id="contactForm" action="https://formspree.io/f/xkoynvjw" method="POST">
+            <input type="text" name="name" id="name" placeholder="Your name" required />
+          
+            <input type="email" name="email" id="email" placeholder="Email address" required />
+          
+            <input type="tel" name="phone" id="phone" placeholder="Phone number" />
+          
+            <select name="service" id="service">
+              <option value="">What do you need help with?</option>
+              <option value="Bookkeeping">Bookkeeping</option>
+              <option value="QuickBooks Clean Up">QuickBooks Clean Up</option>
+              <option value="Payroll">Payroll</option>
+              <option value="1099 Preparation">1099 Preparation</option>
+              <option value="Workers Compensation Audit">Workers Compensation Audit</option>
+              <option value="Financial Statement Analysis">Financial Statement Analysis</option>
+              <option value="QuickBooks Discounted Software">QuickBooks Discounted Software</option>
+            </select>
+          
+            <textarea name="message" id="message" placeholder="Tell me what you need help with"></textarea>
+        
+          <button class="btn btn-primary" type="submit">Request Free Consultation</button>
+        </form>
         </div>
       </div>
     </section>
@@ -776,13 +791,6 @@
 
     document.querySelectorAll('a[href^="#"]').forEach(link => {
       link.addEventListener('click', () => navLinks.classList.remove('open'));
-    });
-
-    form.addEventListener('submit', event => {
-      event.preventDefault();
-      const name = document.getElementById('name').value.trim();
-      formMessage.textContent = `Thanks, ${name || 'there'}! Your message is ready to be connected to email or a form service.`;
-      form.reset();
     });
 
     document.getElementById('year').textContent = new Date().getFullYear();
