@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SafeHands Accounting</title>
+  <style>
+    :root {
+      --blue: #005aa6;
+      --blue-dark: #003b82;
+      --green: #2c9b2f;
+      --green-light: #93d500;
+      --gray: #55585f;
+      --light: #f5f9fb;
+      --white: #ffffff;
+      --shadow: 0 20px 50px rgba(0, 60, 120, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      color: #1f2933;
+      background: var(--white);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1120px, 92%);
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid #e7eef3;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      font-size: 1.2rem;
+    }
+
+    .brand-mark {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--blue), var(--green));
+      color: white;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      box-shadow: var(--shadow);
+    }
+
+    .brand span:first-child {
+      color: var(--blue);
+    }
+
+    .brand span:last-child {
+      color: var(--green);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      font-weight: 700;
+      color: var(--gray);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: none;
+      border-radius: 999px;
+      padding: 13px 22px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--blue), var(--green));
+      color: white;
+      box-shadow: var(--shadow);
+    }
+
+    .btn-primary:hover,
+    .btn-secondary:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: var(--blue);
+      border: 1px solid #d8e6ef;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 10% 20%, rgba(0, 90, 166, 0.14), transparent 32%),
+        radial-gradient(circle at 90% 10%, rgba(147, 213, 0, 0.18), transparent 30%),
+        linear-gradient(180deg, #ffffff 0%, #f4fbf7 100%);
+      padding: 86px 0 72px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.08fr 0.92fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: white;
+      border: 1px solid #dbe9ef;
+      border-radius: 999px;
+      padding: 9px 15px;
+      color: var(--blue);
+      font-weight: 800;
+      box-shadow: 0 10px 30px rgba(0, 90, 166, 0.08);
+      margin-bottom: 22px;
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 5vw, 5rem);
+      line-height: 1.02;
+      letter-spacing: -0.05em;
+      margin-bottom: 22px;
+    }
+
+    h1 .blue {
+      color: var(--blue);
+    }
+
+    h1 .green {
+      color: var(--green);
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--gray);
+      max-width: 620px;
+      margin-bottom: 30px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .logo-card {
+  background: white;
+  border-radius: 36px;
+  padding: 20px;
+  box-shadow: 0 20px 50px rgba(0, 60, 120, 0.12);
+  border: 1px solid #e6eef3;
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo-main {
+  width: 100%;
+  max-width: 430px;
+  height: auto;
+  display: block;
+}
+
+.certification-wrap {
+  width: 100%;
+  max-width: 520px;
+  margin: 22px auto 0;
+}
+
+.gold-badge {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  background: white;
+  border: 1px solid #e5d27a;
+  border-radius: 999px;
+  padding: 10px 16px;
+  margin-bottom: 18px;
+
+  box-shadow: 0 8px 22px rgba(180, 140, 0, 0.15);
+  color: #8a6b00;
+  font-weight: 800;
+  font-size: 14px;
+}
+
+.gold-badge .gold {
+  width: 34px;
+  height: auto;
+  display: block;
+}
+
+.badges {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 14px;
+  flex-wrap: nowrap;
+}
+
+.badge-item {
+  width: 70px;
+  height: 70px;
+  flex: 0 0 70px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+  cursor: pointer;
+}
+
+.badge-item img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+  transition: transform 0.25s ease;
+}
+
+.badge-item:hover img {
+  transform: translateY(-4px) scale(1.06);
+}
+
+.badge-label {
+  position: absolute;
+  top: 82px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 130px;
+  background: linear-gradient(135deg, #005aa6, #2c9b2f);
+  color: white;
+  padding: 8px 10px;
+  border-radius: 10px;
+
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.3;
+  text-align: center;
+
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.25s ease;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+}
+
+.badge-item:hover .badge-label {
+  opacity: 1;
+  visibility: visible;
+  top: 88px;
+}
+
+@media (max-width: 620px) {
+  .badges {
+    gap: 8px;
+  }
+
+  .badge-item {
+    width: 52px;
+    height: 52px;
+    flex: 0 0 52px;
+  }
+
+  .badge-label {
+    top: 62px;
+    width: 110px;
+    font-size: 10px;
+  }
+
+  .badge-item:hover .badge-label {
+    top: 68px;
+  }
+
+  .gold-badge {
+    font-size: 12px;
+    padding: 9px 12px;
+  }
+}
+
+    .logo-card img {
+      width: 100%;
+      max-width: 430px;
+      border-radius: 24px;
+    }
+
+    .trust-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 34px;
+    }
+
+    .trust-item {
+      background: rgba(255,255,255,.74);
+      border: 1px solid #e5eef3;
+      border-radius: 22px;
+      padding: 18px;
+    }
+
+    .trust-item strong {
+      color: var(--blue);
+      font-size: 1.4rem;
+      display: block;
+    }
+
+    section {
+      padding: 76px 0;
+    }
+
+    .section-heading {
+      text-align: center;
+      max-width: 780px;
+      margin: 0 auto 40px;
+    }
+
+    .section-heading h2 {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.1;
+      letter-spacing: -0.04em;
+      margin-bottom: 14px;
+    }
+
+    .section-heading p {
+      color: var(--gray);
+      font-size: 1.05rem;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .service-card {
+      background: white;
+      border: 1px solid #e2edf3;
+      border-radius: 26px;
+      padding: 26px;
+      box-shadow: 0 12px 35px rgba(0, 60, 120, 0.07);
+      transition: 0.2s ease;
+    }
+
+    .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+    }
+
+    .icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      color: white;
+      font-weight: 900;
+      margin-bottom: 18px;
+      background: linear-gradient(135deg, var(--blue), var(--green));
+    }
+
+    .service-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      color: #152938;
+    }
+
+    .service-card p {
+      color: var(--gray);
+      font-size: 0.98rem;
+    }
+
+    .process {
+      background: var(--light);
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .step {
+      background: white;
+      border-radius: 24px;
+      padding: 24px;
+      border: 1px solid #e3edf2;
+    }
+
+    .step-number {
+      color: var(--green);
+      font-size: 2rem;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+
+    .cta {
+      background: linear-gradient(135deg, var(--blue-dark), var(--blue), var(--green));
+      color: white;
+      border-radius: 36px;
+      padding: 52px;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      align-items: center;
+      gap: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .cta h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.1;
+      margin-bottom: 12px;
+    }
+
+    .cta p {
+      opacity: 0.9;
+      font-size: 1.05rem;
+    }
+
+    .cta-box {
+      background: rgba(255,255,255,.14);
+      border: 1px solid rgba(255,255,255,.24);
+      border-radius: 26px;
+      padding: 24px;
+    }
+
+    .cta-box input,
+    .cta-box textarea {
+      width: 100%;
+      border: none;
+      border-radius: 16px;
+      padding: 14px 16px;
+      margin-bottom: 12px;
+      font: inherit;
+    }
+
+    .cta-box textarea {
+      min-height: 96px;
+      resize: vertical;
+    }
+
+    footer {
+      padding: 30px 0;
+      color: var(--gray);
+      text-align: center;
+      border-top: 1px solid #e7eef3;
+    }
+
+    .mobile-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: var(--blue);
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .cta {
+        grid-template-columns: 1fr;
+      }
+
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .steps,
+      .trust-row {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        left: 4%;
+        right: 4%;
+        top: 74px;
+        background: white;
+        border: 1px solid #e2edf3;
+        border-radius: 24px;
+        padding: 22px;
+        box-shadow: var(--shadow);
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .mobile-toggle {
+        display: block;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .services-grid,
+      .steps,
+      .trust-row {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 54px;
+      }
+
+      .logo-card,
+      .cta {
+        padding: 24px;
+        border-radius: 26px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a class="brand" href="#home" aria-label="SafeHands Accounting Home">
+        <div class="brand-mark"><span><img src="Image (31).png" alt="" width="50" height="50"></span></div>
+        <div><span>Safe</span><span>Hands</span> Accounting</div>
+      </a>
+
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Open menu">☰</button>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="#services">Services</a>
+        <a href="#process">Process</a>
+        <a href="#contact">Contact</a>
+        <a class="btn btn-primary" href="#contact">Free Consultation</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="home">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">Reliable books. Clear numbers. Safe hands.</div>
+          <h1><span class="blue">Bookkeeping</span> support you can trust with your <span class="green">business numbers.</span></h1>
+          <p>
+            SafeHands Accounting helps small businesses stay organized with bookkeeping, QuickBooks clean up, payroll support, 1099 preparation, financial statement analysis, and year-end coordination with your CPA or tax professional.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#contact">Get Started</a>
+            <a class="btn btn-secondary" href="#services">View Services</a>
+          </div>
+
+          <div class="trust-row">
+            <div class="trust-item"><strong>Clean</strong>Books that make sense</div>
+            <div class="trust-item"><strong>Clear</strong>Financial reporting</div>
+            <div class="trust-item"><strong>Ready</strong>For tax season</div>
+          </div>
+        </div>
+
+        <div class="logo-card">
+          <img class="logo-main" src="Image (31).png" alt="SafeHands Accounting logo" />
+
+          <div class="certification-wrap">
+            <div class="gold-badge">
+              <img class="gold" src="intuit-proadvisor-badge-tier-gold.png" alt="Intuit ProAdvisor Gold badge">
+              <span>Intuit ProAdvisor Gold Tier</span>
+            </div>
+
+            <div class="badges">
+              <span class="badge-item">
+                <img src="intuit-bookkeeping-certification.png" alt="Intuit Bookkeeping Certified">
+                <div class="badge-label">Intuit Bookkeeping Certified</div>
+              </span>
+
+              <span class="badge-item">
+                <img src="client-advisory-services-foundations.png" alt="Client Advisory Services Foundations">
+                <div class="badge-label">Client Advisory Services Foundations</div>
+              </span>
+
+              <span class="badge-item">
+                <img src="intuit-enterprise-suite-certification.png" alt="Intuit Enterprise Suite Certified">
+                <div class="badge-label">Intuit Enterprise Suite Certified</div>
+              </span>
+
+              <span class="badge-item">
+                <img src="quickbooks-desktop-certification.png" alt="QuickBooks Desktop Certified">
+                <div class="badge-label">QuickBooks Desktop Certified</div>
+              </span>
+
+              <span class="badge-item">
+                <img src="quickbooks-online-certification-level-2.png" alt="QuickBooks Online Level 2 Certified">
+                <div class="badge-label">QuickBooks Online Level 2 Certified</div>
+              </span>
+
+              <span class="badge-item">
+                <img src="quickbooks-online-payroll-certification.png" alt="QuickBooks Payroll Certified">
+                <div class="badge-label">QuickBooks Payroll Certified</div>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="services">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Accounting support built around your business.</h2>
+          <p>Choose the services you need now, then scale your support as your business grows.</p>
+        </div>
+
+        <div class="services-grid">
+          <div class="service-card">
+            <div class="icon">✓</div>
+            <h3>Bookkeeping</h3>
+            <p>Monthly transaction categorization, account review, reconciliations, and clean reporting.</p>
+          </div>
+
+          <div class="service-card">
+            <div class="icon">QB</div>
+            <h3>QuickBooks Clean Up</h3>
+            <p>Fix messy books, review old transactions, clean up chart of accounts, and correct balances.</p>
+          </div>
+
+          <div class="service-card">
+            <div class="icon">$</div>
+            <h3>Payroll Support</h3>
+            <p>Payroll coordination, payroll review, and support keeping payroll records organized.</p>
+          </div>
+
+          <div class="service-card">
+            <div class="icon">📊</div>
+            <h3>Financial Statement Analysis</h3>
+            <p>Review profit and loss, balance sheet, cash flow, and key financial trends.</p>
+          </div>
+
+          <div class="service-card">
+            <div class="icon">1099</div>
+            <h3>1099 Preparation</h3>
+            <p>Collect vendor details, review eligible payments, and prepare 1099s for filing.</p>
+          </div>
+
+          <div class="service-card">
+            <div class="icon">WC</div>
+            <h3>Workers’ Compensation Audits</h3>
+            <p>Help organize payroll, subcontractor, insurance, and audit documentation.</p>
+          </div>
+
+          <div class="service-card">
+            <div class="icon">CPA</div>
+            <h3>Tax Document Coordination</h3>
+            <p>Coordinate books, reports, documents, and figures with your CPA or tax professional.</p>
+          </div>
+
+          <div class="service-card">
+            <div class="icon">%</div>
+            <h3>Discounted QuickBooks Software</h3>
+            <p>Get matched with the right QuickBooks package at a discounted price based on your needs.</p>
+          </div>
+
+          <div class="service-card">
+            <div class="icon">+</div>
+            <h3>Custom Support Packages</h3>
+            <p>Build a package around your volume, deadlines, reporting needs, and business goals.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="process" id="process">
+      <div class="container">
+        <div class="section-heading">
+          <h2>A simple process that keeps your books moving.</h2>
+          <p>No confusion. No chasing documents at the last minute. Just organized financial support.</p>
+        </div>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-number">01</div>
+            <h3>Review</h3>
+            <p>We review your current books, systems, and pain points.</p>
+          </div>
+          <div class="step">
+            <div class="step-number">02</div>
+            <h3>Clean Up</h3>
+            <p>We correct issues, organize accounts, and bring records up to date.</p>
+          </div>
+          <div class="step">
+            <div class="step-number">03</div>
+            <h3>Maintain</h3>
+            <p>Monthly bookkeeping keeps your numbers accurate and current.</p>
+          </div>
+          <div class="step">
+            <div class="step-number">04</div>
+            <h3>Report</h3>
+            <p>You receive clear financial reporting and year-end support.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="cta">
+          <div>
+            <h2>Ready to put your books in SafeHands?</h2>
+            <p>Send a quick message and we’ll help determine the right bookkeeping, cleanup, payroll, 1099, or QuickBooks package for your business.</p>
+          </div>
+
+          <form class="cta-box" id="contactForm">
+            <input type="text" id="name" placeholder="Your name" required />
+            <input type="email" id="email" placeholder="Email address" required />
+            <textarea id="message" placeholder="Tell us what you need help with"></textarea>
+            <button class="btn btn-primary" type="submit">Request Consultation</button>
+            <p id="formMessage" style="margin-top: 12px; font-size: .95rem;"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      © <span id="year"></span> SafeHands Accounting. Bookkeeping and business support services.
+    </div>
+  </footer>
+
+  <script>
+    const mobileToggle = document.getElementById('mobileToggle');
+    const navLinks = document.getElementById('navLinks');
+    const form = document.getElementById('contactForm');
+    const formMessage = document.getElementById('formMessage');
+
+    mobileToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', () => navLinks.classList.remove('open'));
+    });
+
+    form.addEventListener('submit', event => {
+      event.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      formMessage.textContent = `Thanks, ${name || 'there'}! Your message is ready to be connected to email or a form service.`;
+      form.reset();
+    });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
