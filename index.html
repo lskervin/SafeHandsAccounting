@@ -132,8 +132,8 @@
     }
 
     .hero-grid {
-      display: grid;
-      grid-template-columns: 1.08fr 0.92fr;
+      display: flex;
+      /* grid-template-columns: 1.08fr 0.92fr; */
       gap: 48px;
       align-items: center;
     }
@@ -195,7 +195,7 @@
 
 .logo-main {
   width: 100%;
-  max-width: 430px;
+  max-width: 360px;
   height: auto;
   display: block;
 }
@@ -265,6 +265,15 @@
   transform: translateY(-4px) scale(1.06);
 }
 
+#service {
+     display:inline-block;
+   padding:8px 16px;
+   background:#f4f4f4;
+   border-radius:20px;
+   margin-bottom:20px;
+   width: 100%;
+}
+
 .badge-label {
   position: absolute;
   top: 82px;
@@ -294,6 +303,8 @@
   visibility: visible;
   top: 88px;
 }
+
+
 
 @media (max-width: 620px) {
   .badges {
@@ -579,24 +590,9 @@
     <section class="hero">
       <div class="container hero-grid">
         <div>
-          <div class="eyebrow">Reliable books. Clear numbers. Safe hands.</div>
-          <h1><span class="blue">Bookkeeping</span> support you can trust with your <span class="green">business numbers.</span></h1>
-          <p>
-            SafeHands Accounting helps small businesses stay organized with bookkeeping, QuickBooks clean up, payroll support, 1099 preparation, financial statement analysis, and year-end coordination with your CPA or tax professional.
-          </p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#contact">Get Started</a>
-            <a class="btn btn-secondary" href="#services">View Services</a>
-          </div>
-
-          <div class="trust-row">
-            <div class="trust-item"><strong>Clean</strong>Books that make sense</div>
-            <div class="trust-item"><strong>Clear</strong>Financial reporting</div>
-            <div class="trust-item"><strong>Ready</strong>For tax season</div>
-          </div>
-        </div>
-
-        <div class="logo-card">
+          
+          <div class="logo-card">
+            <div class="eyebrow">Reliable books. Clear numbers. Safe hands.</div>
           <img class="logo-main" src="Image (31).png" alt="SafeHands Accounting logo" />
 
           <div class="certification-wrap">
@@ -638,6 +634,23 @@
             </div>
           </div>
         </div>
+          <h1><span class="blue">Bookkeeping</span> support you can trust with your <span class="green">business numbers.</span></h1>
+          <p>
+            SafeHands Accounting helps small businesses stay organized with bookkeeping, QuickBooks clean up, payroll support, 1099 preparation, financial statement analysis, and year-end coordination with your CPA or tax professional.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#contact">Get Started</a>
+            <a class="btn btn-secondary" href="#services">View Services</a>
+          </div>
+
+          <div class="trust-row">
+            <div class="trust-item"><strong>Clean</strong>Books that make sense</div>
+            <div class="trust-item"><strong>Clear</strong>Financial reporting</div>
+            <div class="trust-item"><strong>Ready</strong>For tax season</div>
+          </div>
+        </div>
+
+        
       </div>
     </section>
 
@@ -763,11 +776,13 @@
               <option value="Financial Statement Analysis">Financial Statement Analysis</option>
               <option value="QuickBooks Discounted Software">QuickBooks Discounted Software</option>
             </select>
+
+            <span class="myspan"></span>
           
             <textarea name="message" id="message" placeholder="Tell me what you need help with"></textarea>
         
-          <button class="btn btn-primary" type="submit">Request Free Consultation</button>
-        </form>
+            <button class="btn btn-primary" type="submit">Request Free Consultation</button>
+          </form>
         </div>
       </div>
     </section>
@@ -793,6 +808,7 @@
       link.addEventListener('click', () => navLinks.classList.remove('open'));
     });
 
+   
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
